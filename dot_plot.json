@@ -1,0 +1,242 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent", 
+  "title": {
+    "text": "Total Deaths by Age Group in Malaysia (2022)",
+    "anchor": "middle",
+    "fontSize": 20,
+    "font": "Serif",
+    "offset": 15  
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/YuEunice/Data_Visualisation_2/main/data/Age_group_deaths_data.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "fold": ["Deaths(Male)", "Deaths(Female)", "Deaths"],
+      "as": ["Gender", "Deaths"]
+    },
+    {
+      "calculate": "datum.Gender == 'Deaths(Male)' ? 'Male' : datum.Gender == 'Deaths(Female)' ? 'Female' : 'Combined'",
+      "as": "GenderLabel"
+    }
+  ],
+  "layer": [
+    {
+      "mark": "line",  
+      "encoding": {
+        "y": {
+          "field": "Age group",
+          "type": "nominal",
+          "axis": {
+            "title": "Age Group"
+          }
+        },
+        "x": {
+          "field": "Deaths",
+          "type": "quantitative",
+          "title": "Number of Deaths"
+        },
+        "detail": {
+          "field": "Age group"  
+        },
+        "color": {
+          "value": "gray"  
+        }
+      }
+    },
+    {
+      "selection": {
+        "gender_hover": {
+          "type": "single",
+          "fields": ["GenderLabel"],
+          "on": "mouseover",
+          "empty": "all"
+        }
+      },
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "y": {
+          "field": "Age group",
+          "type": "nominal",
+          "axis": {
+            "labelFontSize": 13,   
+            "titleFontSize": 15 , 
+            "labelFont": "Serif",
+            "titleFont": "Serif"  
+          }
+          
+        },
+        "x": {
+          "field": "Deaths",
+          "type": "quantitative",
+          "axis": {
+            "labelFontSize": 13,   
+            "titleFontSize": 15 , 
+            "labelFont": "Serif",
+            "titleFont": "Serif"    
+        }
+        },
+        "color": {
+          "field": "GenderLabel",  
+          "type": "nominal",
+          "scale": {
+            "range": [ "#7A7576","#F291CF","#59A2DE"]
+          },
+          "legend": {
+            "title": "Gender",
+            "titleFontSize": 15,
+            "titleFont": "Serif",
+            "labelFont": "Serif",
+            "labelFontSize": 13
+          }
+        },
+        "size": {"value": 80},
+        "opacity": {
+          "condition": {
+            "selection": "gender_hover",
+            "value": 1
+          },
+          "value": 0.2
+        },
+        "tooltip": [
+          {"field": "Age group", "type": "nominal", "title": "Age Group"},
+          {"field": "GenderLabel", "type": "nominal", "title": "Gender"},
+          {"field": "Deaths", "type": "quantitative", "title": "Total Deaths"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 1.5,
+        "color": "#6b6a6a"
+      },
+      "encoding": {
+        "x": {"value": 215}, 
+        "y": {"value": 390},
+        "x2": {"value": 290},
+        "y2": {"value": 238}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "font": "Serif",
+        "fontSize": 14,
+        "color": "black",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {"value": 230},  
+        "y": {"value": 190}, 
+        "text": {"value": "Significant"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "font": "Serif",
+        "fontSize": 14,
+        "color": "#4d4c4c"
+      },
+      "encoding": {
+        "x": {"value": 298},  
+        "y": {"value": 190}, 
+        "text": {"value": "mortality rates are"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "font": "Serif",
+        "fontSize": 14,
+        "color": "#4d4c4c"
+
+      },
+      "encoding": {
+        "x": {"value": 230},  
+        "y": {"value": 205}, 
+        "text": {"value": "observed in older age groups,"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "font": "Serif",
+        "fontSize": 13,
+        "color": "#4d4c4c"
+      },
+      "encoding": {
+        "x": {"value": 230},  
+        "y": {"value": 220}, 
+        "text": {"value": "particularly for                 aged"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "font": "Serif",
+        "fontSize": 13,
+        "color": "#F291CF",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {"value": 313},  
+        "y": {"value": 220}, 
+        "text": {"value": "Females "}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "font": "Serif",
+        "fontSize": 13,
+        "color": "black",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {"value": 230},  
+        "y": {"value": 235}, 
+        "text": {"value": "85 and over."}
+      }
+    }
+  ],
+  "width": 350,
+  "height": 400,
+  "config": {
+    "axis": {
+      "grid": true
+    }
+  }
+}

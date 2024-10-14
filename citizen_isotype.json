@@ -1,0 +1,176 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": "transparent",
+    "config": {
+      "view": {
+        "stroke": null
+      }
+    },
+    "width": 410,
+    "height": 440,
+    "title": {
+      "text": "Crude Death Rate for Citizen in Malaysia (2022)",
+      "anchor": "middle",
+      "fontSize": 20,
+      "font": "Serif"
+    },
+    "data": {
+      "values": [
+        {"Group": "Citizen", "Ethnic group": "Malay", "image": "Malay", "Crude Death Rate": 6.2, "Total Deaths": 108627},
+        {"Group": "Citizen", "Ethnic group": "Malay", "image": "Malay", "Crude Death Rate": 6.2, "Total Deaths": 108627},
+        {"Group": "Citizen", "Ethnic group": "Malay", "image": "Malay", "Crude Death Rate": 6.2, "Total Deaths": 108627},
+        {"Group": "Citizen", "Ethnic group": "Malay", "image": "Malay", "Crude Death Rate": 6.2, "Total Deaths": 108627},
+        {"Group": "Citizen", "Ethnic group": "Malay", "image": "Malay", "Crude Death Rate": 6.2, "Total Deaths": 108627},
+        {"Group": "Citizen", "Ethnic group": "Malay", "image": "Malay", "Crude Death Rate": 6.2, "Total Deaths": 108627},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese", "Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese","Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese", "Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese", "Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese", "Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese", "Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese", "Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Chinese", "image": "Chinese", "Crude Death Rate": 7.8, "Total Deaths": 53333},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian", "Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian", "Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian", "Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian", "Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian", "Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian", "Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian", "Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian","Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Indians", "image": "Indian","Crude Death Rate": 8.5, "Total Deaths": 16935},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others","Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024},
+        {"Group": "Citizen", "Ethnic group": "Others", "image": "Others", "Crude Death Rate": 9.1, "Total Deaths": 2024}
+      ]
+    },
+    "transform": [
+      {
+        "calculate": "{'Malay': 'https://raw.githubusercontent.com/YuEunice/Data_Visualisation_2/main/image/Malay(Male).png','Chinese': 'https://raw.githubusercontent.com/YuEunice/Data_Visualisation_2/main/image/Chinese(Male).png','Indian': 'https://raw.githubusercontent.com/YuEunice/Data_Visualisation_2/main/image/Indian(Male).png','Others': 'https://raw.githubusercontent.com/YuEunice/Data_Visualisation_2/main/image/Others.png'}[datum.image]",
+        "as": "image"
+      },
+      {"window": [{"op": "rank", "as": "rank"}], "groupby": ["Ethnic group", "Total Deaths"]}
+    ],
+    "layer": [
+      {
+        "mark": {"type": "image", "width": 70, "height": 75},
+        "encoding": {
+          "x": {"field": "rank", "type": "ordinal", "axis": null, "scale": {"padding": 16}},
+          "y": {"field": "Ethnic group", "type": "nominal", "axis": {"title": "", "labelFontSize": 13,   
+          "titleFontSize": 15 , 
+          "labelFont": "Serif",
+          "titleFont": "Serif" }},
+          "row": {"field": "Group", "header": {"title": "", "labelFontSize": 12}},
+          "url": {"field": "image", "type": "nominal"},
+          "tooltip": [
+            {"field": "Group", "type": "nominal", "title": "Citizenship Status"},
+            {"field": "Ethnic group", "type": "nominal", "title": "Ethnic Group"},
+            {"field": "Crude Death Rate", "type": "quantitative", "title": "Crude Death Rate (per 1,000 population)"},
+            {"field": "Total Deaths", "type": "quantitative", "title": "Total Deaths"}
+          ]
+        }
+      },
+      {
+        "mark": {"type": "rule", "strokeWidth": 1.5, "color": "#6b6a6a"},
+        "encoding": {
+          "x": {"value": 240},  
+          "y": {"value": 280}, 
+          "x2": {"value": 270}, 
+          "y2": {"value": 255}  
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "dy": -10,
+          "font": "Serif",
+          "fontSize": 14,
+          "color": "#0b6d58",
+          "fontWeight": "bold"
+        },
+        "encoding": {
+          "x": {"value": 270},  
+          "y": {"value": 225}, 
+          "text": {"value": "Malay"}
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "dy": -10,
+          "font": "Serif",
+          "fontSize": 14,
+          "color": "#4d4c4c"
+        },
+        "encoding": {
+          "x": {"value": 313},  
+          "y": {"value": 225}, 
+          "text": {"value": "experienced the"}
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "dy": -10,
+          "font": "Serif",
+          "fontSize": 14,
+          "color": "#black",
+          "fontWeight": "bold"
+        },
+        "encoding": {
+          "x": {"value": 270},  
+          "y": {"value": 240}, 
+          "text": {"value": "least"}
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "dy": -10,
+          "font": "Serif",
+          "fontSize": 14,
+          "color": "#4d4c4c"
+        },
+        "encoding": {
+          "x": {"value": 304},  
+          "y": {"value": 240}, 
+          "text": {"value": "number of deaths per"}
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "dy": -10,
+          "font": "Serif",
+          "fontSize": 14,
+          "color": "#4d4c4c"
+        },
+        "encoding": {
+          "x": {"value": 270},  
+          "y": {"value": 255}, 
+          "text": {"value":"1,000 people in 2022."}
+        }
+      }
+    ]
+  }

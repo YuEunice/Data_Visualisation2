@@ -1,0 +1,216 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent", 
+  "data": {
+    "url": "https://raw.githubusercontent.com/YuEunice/Data_Visualisation_2/main/data/Total_deaths_states_data.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "fold": ["Crude death rate (Male)", "Crude death rate (Female)"],
+      "as": ["Gender", "CrudeDeathRate"]
+    },
+    {
+      "calculate": "datum.Gender == 'Crude death rate (Male)' ? 'Male' : 'Female'",
+      "as": "GenderLabel"
+    },
+    {
+      "calculate": "datum.Gender == 'Crude death rate (Male)' ? -datum.CrudeDeathRate : datum.CrudeDeathRate",
+      "as": "CrudeDeathRate"
+    },
+    {
+      "calculate": "abs(datum.CrudeDeathRate)",
+      "as": "CrudeDeathRateTooltip"
+    },
+    {
+      "calculate": "datum.Gender == 'Crude death rate (Male)' ? datum['Deaths(Male)'] : datum['Deaths(Female)']",
+      "as": "TotalDeaths"
+    }
+  ],
+  "title": {
+    "text": "Gendered Crude Death Rates by State in Malaysia (2022)",
+    "fontSize": 20,
+    "font": "Serif",
+    "anchor": "middle",
+    "offset": 15  
+  },
+  "width": 350,
+  "height": 400,
+  "params": [
+    {
+      "name": "Gender_Selection",
+      "value": null,
+      "bind": {
+        "input": "select",
+        "options": [null, "Male", "Female"],
+        "labels": ["All Genders", "Male", "Female"],
+        "name": "Gender Selection: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "State",
+          "type": "nominal",
+          "axis": {
+            "title": "States",
+              "labelFontSize": 13,   
+              "titleFontSize": 15 , 
+              "labelFont": "Serif",
+              "titleFont": "Serif" 
+          }
+     
+        },
+        "x": {
+          "field": "CrudeDeathRate",
+          "type": "quantitative",
+          "title": "Crude Death Rate (per 1,000 population)",
+          "axis": {
+            "format": "s",
+            "labelFontSize": 13,   
+            "titleFontSize": 15  , 
+            "labelFont": "Serif",
+            "titleFont": "Serif"
+          },
+          "scale": {
+            "domain": [-10, 10]  
+          }
+        },
+        "color": {
+          "field": "GenderLabel",
+          "type": "nominal",
+          "scale": {
+            "range": ["#F291CF", "#59A2DE"]
+          },
+          "legend": {
+            "title": "Gender",
+            "titleFontSize": 15,
+            "titleFont": "Serif",
+            "labelFont": "Serif",
+            "labelFontSize": 13
+          }
+        },
+        "tooltip": [
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "GenderLabel",
+            "type": "nominal",
+            "title": "Gender"
+          },
+          {
+            "field": "CrudeDeathRateTooltip",
+            "type": "quantitative",
+            "title": "Crude Death Rate (per 1,000 population)"
+          },
+          {
+            "field": "TotalDeaths",
+            "type": "quantitative",
+            "title": "Total Deaths"
+          }
+        ],
+        "opacity": {
+          "condition": {
+            "test": "Gender_Selection === null || datum.GenderLabel === Gender_Selection",
+            "value": 1
+          },
+          "value": 0.5
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 1.5,
+        "color": "#6b6a6a"
+      },
+      "encoding": {
+        "x": {"value": 200}, 
+        "y": {"value": 390},
+        "x2": {"value": 267},
+        "y2": {"value": 377}
+      }
+    },
+     {
+      "mark": {
+        "type": "text",
+        "dx": 240, 
+        "align": "left",
+        "fontSize": 14,
+        "font": "Serif",
+        "color": "#0a18e0",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {"value": 33},  "y": {"value": 345},"text": {"value": "Putrajaya"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dx": 240, 
+        "align": "left",
+        "fontSize": 14,
+        "font": "Serif",
+        "color": "#4d4c4c"
+      },
+      "encoding": {
+        "x": {"value": 97},  "y": {"value": 345},"text": {"value": "has the"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dx": 240, 
+        "align": "left",
+        "fontSize": 14,
+        "font": "Serif",
+        "color": "black",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {"value": 140},  "y": {"value": 345},"text": {"value": "lowest"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dx": 240, 
+        "align": "left",
+        "fontSize": 14,
+        "font": "Serif",
+        "color": "#4d4c4c"
+      },
+      "encoding": {
+        "x": {"value": 33},  "y": {"value": 360},"text": {"value": "crude death rate due to"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dx": 240, 
+        "align": "left",
+        "fontSize": 14,
+        "font": "Serif",
+        "color": "#4d4c4c"
+      },
+      "encoding": {
+        "x": {"value": 33},  "y": {"value": 375},"text": {"value": "advanced healthcare"}
+      }
+    }
+
+  ],
+
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"grid": false}
+  }
+}
